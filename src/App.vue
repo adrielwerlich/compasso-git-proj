@@ -1,17 +1,16 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <github-search-component></github-search-component>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import GithubSearchComponent from './components/GithubSearchComponent.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    GithubSearchComponent
   }
 }
 </script>
