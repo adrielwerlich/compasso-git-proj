@@ -30,6 +30,7 @@
       <v-btn
         depressed
         color="yellow"
+        @click="displayUserStarred = true"
       >
         Starred
       </v-btn>
@@ -39,6 +40,7 @@
       <GithubSearchComponent />
       <UserDisplayInfo 
         :setDisplayRepos="displayUserRepos"
+        :setDisplayStarred="displayUserStarred"
       />
     </v-main>
   </v-app>
@@ -57,6 +59,7 @@ export default {
 
   data: () => ({
     displayUserRepos: false,
+    displayUserStarred: false,
   }),
 }
 </script>

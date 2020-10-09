@@ -45,7 +45,7 @@
               type="card"
              ></v-skeleton-loader>
           </div>
-          <div id="user-repos-list" v-else-if="!loadingRepos && repos && repos.length > 0">
+          <div id="user-repos-list" v-else-if="!loadingRepos && repos && repos.length > 0 && !showStarred">
             <h1 v-if="user && user.name">Lista de repositórios do {{ user.name }}</h1>
             <ul id="repos-listing" style="list-style: none;">
               <li class="repo-data" v-for="(repo, index) in repos" :key="index">
@@ -71,6 +71,55 @@
               </li>
             </ul>
           </div>
+          <div id="starred" v-else-if="showStarred">
+            <div id="starred-loading" v-if="loadingStarred">
+              Carregando os starred
+              <v-skeleton-loader
+                class="mx-auto"
+                max-width="500"
+                type="card"
+              ></v-skeleton-loader>
+            </div>
+            <div id="starred-list" v-else-if="!loadingStarred && starred && starred.length > 0">
+              <h1 v-if="user && user.name">Lista starred de {{ user.name }}</h1>
+            <ul id="repos-listing" style="list-style: none;">
+              <li class="repo-data" v-for="(starredRepo, index) in starred" :key="index">
+                 <v-card
+                    class="mx-auto"
+                    max-width="644"
+                    outlined
+                  >
+                    <v-list-item three-line>
+                      <v-list-item-content>
+                        <h3 name="starred-name">Nome: {{ starredRepo.name }}</h3>
+                        <h4 name="starred-open-issues">Open issues: {{ starredRepo.open_issues }}</h4>
+                        <h5 name="starred-created_at">Data da criação: {{ new Date(starredRepo.created_at).toLocaleString() }}</h5>
+                        <p name="starred-description" v-if="starredRepo.description">
+                          Descrição: {{ starredRepo.description }}
+                        </p>
+                        <p name="starred-forks">Forks: {{ starredRepo.forks }}</p>
+                        <p name="starred-watchers">Watchers: {{ starredRepo.watchers }}</p>
+                        <p name="starred-pushed_at">Último commit: {{ new Date(starredRepo.pushed_at).toLocaleString() }}</p>
+                        <p name="starred-owner">
+                          Owner Data:
+                          <v-list-item three-line>
+                            <v-list-item-content>
+                              <p name="starred-owner-avatar">
+                                <img :src="starredRepo.owner.avatar_url" :alt="starredRepo.owner.login" width="200" />
+                              </p>
+                              <p name="starred-owner-name">
+                                {{starredRepo.owner.login}}
+                              </p>
+                            </v-list-item-content>
+                          </v-list-item>
+                        </p>
+                      </v-list-item-content>
+                    </v-list-item>
+                  </v-card>
+              </li>
+            </ul>
+            </div>
+          </div>
         </div>
       </div>
       <div v-else key="not-found">
@@ -86,20 +135,39 @@ import {mapState, mapActions} from 'vuex'
 export default {
   name: 'user-display-info-component',
   props:{
-    setDisplayRepos: Boolean
+    setDisplayRepos: Boolean,
+    setDisplayStarred: Boolean
   },
-  computed: mapState(['loading', 'loadingRepos', 'user', 'repos']),
+  computed: mapState(['loading', 'loadingRepos', 'loadingStarred', 'user', 'repos', 'starred']),
   watch:{
     setDisplayRepos(n, o) {
-      debugger
       if (n && !o) {
         this.displayUserRepos()
       }
     },
+    setDisplayStarred(n, o) {
+      debugger
+      if (n && !o) {
+        this.displayUserStarred()
+      }
+    },
+  },
+  data() {
+    return {
+      showStarred: false,
+    }
   },
   methods: {
-    ...mapActions(['displayRepos']),
-    displayUserRepos() { this.displayRepos() },
+    ...mapActions(['displayRepos', 'displayStarred']),
+    displayUserRepos() { 
+      this.displayRepos() 
+      this.showStarred = false  
+    },
+    displayUserStarred() { 
+      debugger
+      this.displayStarred() 
+      this.showStarred = true  
+    },
   },
 };
 </script>
