@@ -41,7 +41,7 @@ export default new Vuex.Store({
       commit('SET_LOADING_REPOS', false)
     },
     async displayStarred( {commit, state} ) {
-      debugger
+      
       commit('SET_LOADING_STARRED', true)
       try {
         const { data } = await axios.get(`https://api.github.com/users/${state.user.login}/starred`)

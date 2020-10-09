@@ -146,9 +146,10 @@ export default {
       }
     },
     setDisplayStarred(n, o) {
-      debugger
       if (n && !o) {
         this.displayUserStarred()
+      } else if (n === false) {
+        this.showStarred = false
       }
     },
   },
@@ -164,7 +165,7 @@ export default {
       this.showStarred = false  
     },
     displayUserStarred() { 
-      debugger
+      
       this.displayStarred() 
       this.showStarred = true  
     },

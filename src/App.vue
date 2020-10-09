@@ -22,7 +22,7 @@
       <v-btn
         outlined
         color="orange"
-        @click="displayUserRepos = true"
+        @click="displayUserRepos = true; displayUserStarred = false"
       >
         Repositórios
       </v-btn>
@@ -30,7 +30,7 @@
       <v-btn
         depressed
         color="yellow"
-        @click="displayUserStarred = true"
+        @click="displayUserStarred = true; displayUserRepos = false"
       >
         Starred
       </v-btn>
