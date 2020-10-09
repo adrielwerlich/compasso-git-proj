@@ -9,7 +9,7 @@
     >
       <div class="d-flex align-center">
         <v-img
-          alt="Compass Logo"
+          alt="Vuetify Logo"
           class="shrink mr-2"
           contain
           src="./assets/images/compass-logo.png"

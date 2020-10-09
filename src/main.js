@@ -1,10 +1,13 @@
 import Vue from 'vue'
 import App from './App.vue'
-import vuex from 'vuex'
+import store from './vuex'
+import vuetify from './plugins/vuetify'
+
 
 Vue.config.productionTip = false
 
 new Vue({
-  vuex,
+  store,
+  vuetify,
   render: function (h) { return h(App) }
 }).$mount('#app')
